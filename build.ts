@@ -79,7 +79,7 @@ async function pullAndExportImage(tag: string, docker: Docker): Promise<void> {
             "ghcr.io/red5d/docker-autocompose:latest",
         );
 
-        const result = await new Promise((resolve, reject) => {
+        const result = await new Promise<unknown[]>((resolve, reject) => {
             docker.modem.followProgress(
                 pullStream,
                 (err: unknown, res: unknown[]) => {
