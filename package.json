@@ -6,6 +6,7 @@
         "dockerode": "^4.0.4",
         "esrun": "^3.2.26",
         "fs-extra": "^11.3.0",
+        "is-main": "^0.4.0",
         "node-gyp": "^11.1.0",
         "typescript": "^5.7.3"
     },

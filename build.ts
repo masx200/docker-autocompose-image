@@ -5,14 +5,15 @@ import fs from "fs";
 import fs_extra from "fs-extra";
 import path from "path";
 import zlib from "zlib";
+import { isMain } from "is-main";
 import type { Result } from "./types.ts";
 const pipelineAsync = promisify(pipeline);
-
-// if (import.meta.main) {
-await main();
-// }
-// 定义 API URL
-
+if (isMain(import.meta)) {
+    // if (import.meta.main) {
+    await main();
+    // }
+    // 定义 API URL
+}
 async function main() {
     const tag = await fetchCommitTag();
 
