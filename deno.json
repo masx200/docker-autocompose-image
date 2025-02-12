@@ -1,0 +1,19 @@
+{
+    "nodeModulesDir": "auto",
+    "fmt": {
+        "indentWidth": 4
+    },
+    "imports": {
+        "dockerode": "npm:dockerode@^4.0.4",
+        "util": "node:util",
+        "stream": "node:stream",
+        "fs": "node:fs",
+        "path": "node:path",
+        "os": "node:os",
+        "child_process": "node:child_process",
+        "http": "node:http",
+        "https": "node:https",
+        "url": "node:url",
+        "zlib": "node:zlib"
+    }
+}
