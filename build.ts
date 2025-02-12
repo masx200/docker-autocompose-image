@@ -5,6 +5,7 @@ import fs from "fs";
 import fs_extra from "fs-extra";
 import path from "path";
 import zlib from "zlib";
+import type { Result } from "./types";
 const pipelineAsync = promisify(pipeline);
 
 // if (import.meta.main) {
@@ -45,7 +46,7 @@ async function fetchCommitTag(): Promise<string> {
             // 返回响应的 JSON 数据
             return response.json();
         })
-        .then((data:any) => {
+        .then((data: Result) => {
             const commitDate = data.commit.author.date; // 提交日期
             const commitHash = data.sha; // 提交哈希值
 
