@@ -1,16 +1,20 @@
 import Docker from "dockerode";
-import { promisify } from "util";
-import { pipeline } from "stream";
 import fs from "fs";
 import fs_extra from "fs-extra";
-import path from "path";
-import zlib from "zlib";
 import { isMain } from "is-main";
+import path from "path";
+import { pipeline } from "stream";
+import { promisify } from "util";
+import zlib from "zlib";
 import type { Result } from "./types.ts";
 const pipelineAsync = promisify(pipeline);
 if (isMain(import.meta)) {
-    // if (import.meta.main) {
+    // setTimeout(async() => {
     await main();
+    //     console.log("main");
+    // }, 100000);
+    // if (import.meta.main) {
+
     // }
     // 定义 API URL
 }

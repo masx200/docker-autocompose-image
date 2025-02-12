@@ -13,5 +13,5 @@ pnpm install --force
 ## 使用
 
 ```bash
-npx esrun build.ts
+npx tsx build.ts
 ```
