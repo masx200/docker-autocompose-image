@@ -82,7 +82,7 @@ async function pullAndExportImage(tag: string, docker: Docker): Promise<void> {
         const result = await new Promise((resolve, reject) => {
             docker.modem.followProgress(
                 pullStream,
-                (err: unknown, res: unknown) => {
+                (err: unknown, res: unknown[]) => {
                     if (err) return reject(err);
                     resolve(res);
                 },
