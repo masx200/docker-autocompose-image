@@ -2,13 +2,14 @@ import Docker from "dockerode";
 import { promisify } from "util";
 import { pipeline } from "stream";
 import fs from "fs";
+import fs_extra from "fs-extra";
 import path from "path";
 import zlib from "zlib";
 const pipelineAsync = promisify(pipeline);
 
-if (import.meta.main) {
-    await main();
-}
+// if (import.meta.main) {
+await main();
+// }
 // 定义 API URL
 
 async function main() {
@@ -35,7 +36,7 @@ async function fetchCommitTag(): Promise<string> {
         "https://api.github.com/repos/Red5d/docker-autocompose/commits/master";
 
     // 发起 GET 请求
-    return await fetch(url, { headers: { "User-Agent": "Deno.js" } })
+    return await fetch(url, { headers: {} })
         .then((response) => {
             // 如果响应状态码不是 200，则抛出错误
             if (!response.ok) {
@@ -55,7 +56,7 @@ async function fetchCommitTag(): Promise<string> {
             // 如果需要进一步处理，可以将变量传递给其他函数
             console.log(
                 "tag:",
-                `${commitDate}-${commitHash}`.replaceAll(":", "-"),
+                `${commitDate}-${commitHash}`.replaceAll(":", "-")
             );
             return `${commitDate}-${commitHash}`.replaceAll(":", "-");
         })
@@ -74,7 +75,7 @@ async function pullAndExportImage(tag: string, docker: Docker): Promise<void> {
         // 1. Pull 镜像
         console.log("正在拉取镜像 ghcr.io/red5d/docker-autocompose:latest...");
         const pullStream = await docker.pull(
-            "ghcr.io/red5d/docker-autocompose:latest",
+            "ghcr.io/red5d/docker-autocompose:latest"
         );
 
         const result = await new Promise((resolve, reject) => {
@@ -87,33 +88,34 @@ async function pullAndExportImage(tag: string, docker: Docker): Promise<void> {
                 function onProgress(event: unknown) {
                     //...
                     console.log(event);
-                },
+                }
             );
         });
         console.log("镜像拉取成功", result);
 
         // 2. 获取镜像实例
         const image = docker.getImage(
-            "ghcr.io/red5d/docker-autocompose:latest",
+            "ghcr.io/red5d/docker-autocompose:latest"
         );
 
         // 3. 给镜像打标签
         console.log(`正在给镜像打标签为 red5d/docker-autocompose:${tag}`);
         await image.tag({ repo: "red5d/docker-autocompose", tag });
         console.log(`镜像已打标签为 red5d/docker-autocompose:${tag}`);
-        await Deno.mkdir("dist", { recursive: true });
+        fs_extra.mkdir("dist", { recursive: true });
+        // await Deno.mkdir("dist", { recursive: true });
         // 4. 导出镜像并压缩为 .tgz 文件
         const outputFilePath = path.resolve(
             "dist",
-            `red5d-docker-autocompose-${tag}-image.tgz`,
+            `red5d-docker-autocompose-${tag}-image.tgz`
         );
         console.log(`正在导出镜像并保存为 ${outputFilePath}`);
 
         // 创建输出文件流
         const outputStream = fs.createWriteStream(outputFilePath);
-        const saveStream = await docker.getImage(
-            `red5d/docker-autocompose:${tag}`,
-        ).get();
+        const saveStream = await docker
+            .getImage(`red5d/docker-autocompose:${tag}`)
+            .get();
 
         // 使用 gzip 压缩
         await pipelineAsync(saveStream, zlib.createGzip(), outputStream);

@@ -10,20 +10,28 @@ on:
 
 jobs:
     build:
+        strategy:
+            matrix:
+                node-version: [22.x]
         runs-on: ubuntu-latest
 
         steps:
-            - name: Install Deno
-              uses: denoland/setup-deno@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
               with:
-                  deno-version: v2.x
+                  node-version: ${{ matrix.node-version }}
+            # - name: Install Deno
+            #   uses: denoland/setup-deno@v2
+            #   with:
+            #       deno-version: v2.x
             - uses: actions/checkout@v4
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v2
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v2
-            - run: deno cache --allow-import build.ts
-            - run: deno  install --allow-scripts ||deno -v
+            - run: pnpm install --force
+            #deno cache --allow-import build.ts
+            # - run: deno  install --allow-scripts ||deno -v
             #   - name: sudo
             #     run: |
             #       sudo apt update
@@ -37,7 +45,7 @@ jobs:
 
             #       bash -c "find . -maxdepth 1 -type f -name \"*.sh\" -exec dos2unix {} \;"
             #       sh build.sh
-            - run: deno run -A build.ts
+            - run: npx ts-node build.ts
             - run: mkdir -p ./dist
             - run: docker images
             #   - name: Build and save
