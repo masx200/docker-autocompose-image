@@ -29,6 +29,7 @@ jobs:
               uses: docker/setup-qemu-action@v2
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v2
+            - run: npm install -g pnpm --force  
             - run: pnpm install --force
             #deno cache --allow-import build.ts
             # - run: deno  install --allow-scripts ||deno -v
