@@ -45,7 +45,7 @@ async function fetchCommitTag(): Promise<string> {
             // 返回响应的 JSON 数据
             return response.json();
         })
-        .then((data) => {
+        .then((data:any) => {
             const commitDate = data.commit.author.date; // 提交日期
             const commitHash = data.sha; // 提交哈希值
 
