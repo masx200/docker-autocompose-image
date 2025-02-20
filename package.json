@@ -1,19 +1,33 @@
 {
-    "type": "module",
-    "dependencies": {
-        "@types/dockerode": "^3.3.34",
-        "@types/fs-extra": "^11.0.4",
-        "dockerode": "^4.0.4",
-        "esrun": "^3.2.26",
-        "fs-extra": "^11.3.0",
-        "is-main": "^0.4.0",
-        "node-gyp": "^11.1.0",
-        "typescript": "^5.7.3"
-    },
-    "devDependencies": {
-        "@types/node": "^22.13.1",
-        "ts-node": "^10.9.2",
-        "tslib": "^2.8.1",
-        "tsx": "^4.19.2"
-    }
+  "type": "module",
+  "dependencies": {
+    "@types/dockerode": "^3.3.34",
+    "@types/fs-extra": "^11.0.4",
+    "dockerode": "^4.0.4",
+    "esrun": "^3.2.26",
+    "fs-extra": "^11.3.0",
+    "is-main": "^0.4.0",
+    "node-gyp": "^11.1.0",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "tsx": "^4.19.2"
+  },
+  "name": "docker-autocompose-image",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/masx200/docker-autocompose-image"
+  },
+  "author": "masx200 <masx200@qq.com>",
+  "license": "MIT",
+  "description": "#### 介绍",
+  "scripts": {
+    "build": "npx tsx build.ts"
+  },
+  "keywords": []
 }
