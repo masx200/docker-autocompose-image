@@ -108,7 +108,7 @@ async function pullAndExportImage(tag: string, docker: Docker): Promise<void> {
         console.log(`正在给镜像打标签为 red5d/docker-autocompose:${tag}`);
         await image.tag({ repo: "red5d/docker-autocompose", tag });
         console.log(`镜像已打标签为 red5d/docker-autocompose:${tag}`);
-        fs_extra.mkdir("dist", { recursive: true });
+        await fs_extra.mkdir("dist", { recursive: true });
         // await Deno.mkdir("dist", { recursive: true });
         // 4. 导出镜像并压缩为 .tgz 文件
         const outputFilePath = path.resolve(
